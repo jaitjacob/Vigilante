@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Vigilante (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Vigilante (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

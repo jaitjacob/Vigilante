@@ -14,6 +14,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using System.Security.Cryptography;
+using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -39,9 +41,33 @@ namespace Vigilante
             e.DragUIOverride.IsGlyphVisible = true; // Sets if the glyph is visibile
         }
 
-        private void Grid_Drop(object sender, DragEventArgs e)
+        private async void Grid_Drop(object sender, DragEventArgs e)
         {
-            
+            string hashString = string.Empty;
+            if (e.DataView.Contains(StandardDataFormats.StorageItems))
+            {
+                var items = await e.DataView.GetStorageItemsAsync();
+                if (items.Any())
+                {
+                    var storageFile = items[0] as StorageFile;
+                    
+                    string path = storageFile.Path;
+                    FileInfo targetFile = new FileInfo(path);
+
+                    using(FileStream fs  = targetFile.Open(FileMode.Open))
+                    {
+                        byte[] hash = MD5.Create().ComputeHash(fs);
+                        hashString = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+                        
+                    }
+
+
+                    if (storageFile != null)
+                    {
+                        DropArea.Text = "File dropped: " + storageFile.Name + "and its SHA256:" + hashString;
+                    }
+                }
+            }
         }
 
 

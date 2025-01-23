@@ -8,8 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid AllowDrop="True" DragOver="Grid_DragOver" Drop="Grid_Drop" 
-      Background="LightBlue" Margin="10,10,10,353">
-        <TextBlock>Drop anywhere in the blue area</TextBlock>
+    <Grid AllowDrop="True" DragOver="Grid_DragOver" Drop="Grid_Drop" Margin="0,0,0,0">
+        <TextBlock Name="DropArea">Drop anywhere in the blue area</TextBlock>
     </Grid>
 </Page>

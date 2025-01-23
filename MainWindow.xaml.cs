@@ -30,6 +30,9 @@ namespace Vigilante
         {
             this.InitializeComponent();
 
+            // Hide system title bar.
+            ExtendsContentIntoTitleBar = true;
+
             // Initialize the frame
             ContentFrame = new Frame();
             MainContent.Children.Add(ContentFrame);
